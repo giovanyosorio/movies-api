@@ -1,0 +1,22 @@
+{
+    "name": "platzivideo",
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.js"
+      }
+    ],
+    "env": {
+      "DB_USER": "@halyfax-db-user",
+      "DB_PASSWORD": "@halyfax-db-password",
+      "DB_HOST": "@halyfax-db-host",
+      "DB_NAME": "@halyfax-db-name"
+    }
+  }
