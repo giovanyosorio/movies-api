@@ -11,7 +11,7 @@ const createUserSchema = {
         .required(),
     email: joi
         .string()
-        .email(10)
+        .email()
         .required(),
     password: joi
         .string()

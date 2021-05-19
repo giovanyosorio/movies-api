@@ -1,27 +1,35 @@
-const MongoLib=require('../lib/mongo')
+const MongoLib = require('../lib/mongo');
 
+class UserMoviesService {
+  constructor() {
+    this.collection = 'user-movies';
+    this.mongoDB = new MongoLib();
+  }
 
-class userMoviesService {
-    constructor(){
-        this.collection='user-movies'
-        this.mongoDB=new MongoLib()
-    }
+  async getUserMovies({ userId }) {
+    const query = userId && { userId };
+    const userMovies = await this.mongoDB.getAll(this.collection, query);
 
-    async getUserMovies({userId}){
-        const query= userId && {userId}
-        const userMovie=await this.mongoDB.getAll(this.collection,query)
-        return userMovie || []
-    }
-    async createUserMovie({userMovie}){
-       const createUserMovieId = await this.mongoDB.create(this.collection,userMovie)
-        return createUserMovieId
-    }
-    async deleteUserMovie({userMovieId}){
-        const deteleUserMovieId = await this.mongoDB.delete(this.collection,userMovieId)
-        return deteleUserMovieId
-    }
+    return userMovies || [];
+  }
+
+  async createUserMovie({ userMovie }) {
+    const createdUserMovieId = await this.mongoDB.create(
+      this.collection,
+      userMovie
+    );
+
+    return createdUserMovieId;
+  }
+
+  async deleteUserMovie({ userMovieId }) {
+    const deletedUserMovieId = await this.mongoDB.delete(
+      this.collection,
+      userMovieId
+    );
+
+    return deletedUserMovieId;
+  }
 }
 
-module.exports={
-    userMoviesService
-}
+module.exports = UserMoviesService;
